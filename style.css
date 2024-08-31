@@ -21,13 +21,31 @@ h1 {
     text-align: center;
 }
 
+.date-input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
 input[type="date"] {
     width: 100%;
     padding: 15px;
     font-size: 18px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 15px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: white;
+}
+
+/* Style the calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }
 
 button {
@@ -94,6 +112,12 @@ button:hover {
     button {
         font-size: 16px;
         padding: 12px;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        width: 30px;
+        height: 30px;
+        right: 5px;
     }
 
     #result {
