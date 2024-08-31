@@ -1,12 +1,26 @@
+// Function to parse date from dd-mm-yyyy format
+function parseDate(dateString) {
+    const parts = dateString.split('-');
+    return new Date(parts[2], parts[1] - 1, parts[0]);
+}
+
+// Function to format date as dd-mm-yyyy
+function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+}
+
 // Function to get date from URL hash
 function getDateFromHash() {
     const hash = window.location.hash.substring(1);
-    return hash ? new Date(hash) : null;
+    return hash ? parseDate(hash) : null;
 }
 
 // Function to set date in URL hash
 function setDateInHash(date) {
-    window.location.hash = date.toISOString().split('T')[0];
+    window.location.hash = formatDate(date);
 }
 
 // Function to count Sundays
@@ -17,7 +31,7 @@ function countSundays(futureDate) {
 
     // Check if the input date is valid and in the future
     if (isNaN(futureDate.getTime()) || futureDate <= today) {
-        resultElement.textContent = "Introduce una fecha válida (en el futuro)";
+        resultElement.textContent = "Por favor, ingrese una fecha futura válida.";
         postitElement.style.display = 'block';
         return;
     }
@@ -34,7 +48,7 @@ function countSundays(futureDate) {
         currentDate.setDate(currentDate.getDate() + 7);
     }
 
-    resultElement.textContent = `Pat, quedan sólo ${sundayCount} Domingos! 😄`;
+    resultElement.textContent = `Hay ${sundayCount} domingos entre hoy y la fecha seleccionada.`;
     postitElement.style.display = 'block';
 
     // Update URL with the selected date
@@ -43,16 +57,15 @@ function countSundays(futureDate) {
 
 // Function to handle button click
 function handleCountClick() {
-    const futureDateInput = document.getElementById('futureDate');
-    const futureDate = new Date(futureDateInput.value);
+    const dateInput = document.getElementById('dateInput');
+    const futureDate = parseDate(dateInput.value);
     countSundays(futureDate);
 }
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
-    const futureDateInput = document.getElementById('futureDate');
-    const today = new Date().toISOString().split('T')[0];
-    futureDateInput.setAttribute('min', today);
+    const dateInput = document.getElementById('dateInput');
+    const countButton = document.getElementById('countButton');
     
     // Hide the post-it note initially
     document.getElementById('postit').style.display = 'none';
@@ -60,19 +73,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for date in URL
     const hashDate = getDateFromHash();
     if (hashDate && hashDate > new Date()) {
-        futureDateInput.value = hashDate.toISOString().split('T')[0];
+        dateInput.value = formatDate(hashDate);
         countSundays(hashDate);
     }
 
     // Add event listener to the button
-    document.querySelector('button').addEventListener('click', handleCountClick);
+    countButton.addEventListener('click', handleCountClick);
+
+    // Add event listener for Enter key on date input
+    dateInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            handleCountClick();
+        }
+    });
 });
 
 // Listen for hash changes
 window.addEventListener('hashchange', function() {
     const hashDate = getDateFromHash();
     if (hashDate) {
-        document.getElementById('futureDate').value = hashDate.toISOString().split('T')[0];
+        document.getElementById('dateInput').value = formatDate(hashDate);
         countSundays(hashDate);
     }
 });
