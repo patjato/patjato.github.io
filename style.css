@@ -37,7 +37,6 @@ input[type="date"] {
     background-color: white;
 }
 
-/* Style the calendar icon */
 input[type="date"]::-webkit-calendar-picker-indicator {
     position: absolute;
     right: 10px;
@@ -67,20 +66,26 @@ button:hover {
 #postit {
     background-color: #feff9c;
     padding: 20px;
-    margin-top: 20px;
+    margin: 30px auto 0;
     position: relative;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transform: rotate(-2deg);
     transition: transform 0.3s ease;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #postit:before {
     content: "";
     position: absolute;
-    top: -12px;
+    top: -15px;
     left: 50%;
     width: 100px;
-    height: 24px;
+    height: 30px;
     background-color: rgba(254, 255, 156, 0.5);
     transform: translateX(-50%);
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
@@ -89,8 +94,28 @@ button:hover {
 #result {
     font-weight: bold;
     margin: 0;
-    font-size: 18px;
     text-align: center;
+    word-wrap: break-word;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#result .faltan {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#result .number {
+    font-size: 72px;
+    line-height: 1;
+    margin: 10px 0;
+}
+
+#result .domingos-hasta {
+    font-size: 18px;
+    margin-top: 10px;
 }
 
 @media (max-width: 480px) {
@@ -120,7 +145,20 @@ button:hover {
         right: 5px;
     }
 
-    #result {
+    #postit {
+        width: 220px;
+        height: 220px;
+    }
+
+    #result .faltan {
+        font-size: 20px;
+    }
+
+    #result .number {
+        font-size: 60px;
+    }
+
+    #result .domingos-hasta {
         font-size: 16px;
     }
 }

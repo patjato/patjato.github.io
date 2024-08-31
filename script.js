@@ -28,7 +28,7 @@ function setDateInHash(date) {
     window.location.hash = formatDate(date);
 }
 
-// Function to count Sundays
+// Update the countSundays function
 function countSundays(futureDate) {
     const resultElement = document.getElementById('result');
     const postitElement = document.getElementById('postit');
@@ -36,7 +36,7 @@ function countSundays(futureDate) {
 
     // Check if the input date is valid and in the future
     if (isNaN(futureDate.getTime()) || futureDate <= today) {
-        resultElement.textContent = "Por favor, ingrese una fecha futura válida.";
+        resultElement.innerHTML = "<span class='faltan'>Fecha inválida</span>";
         postitElement.style.display = 'block';
         return;
     }
@@ -55,7 +55,11 @@ function countSundays(futureDate) {
 
     // Format the result message with the date in dd-mm-yyyy format
     const formattedDate = formatDate(futureDate);
-    resultElement.textContent = `Faltan ${sundayCount} domingos hasta ${formattedDate}`;
+    resultElement.innerHTML = `
+        <span class="faltan">Faltan</span>
+        <span class="number">${sundayCount}</span>
+        <span class="domingos-hasta">domingos hasta ${formattedDate}</span>
+    `;
     postitElement.style.display = 'block';
 
     // Update URL with the selected date
