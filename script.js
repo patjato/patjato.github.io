@@ -53,7 +53,9 @@ function countSundays(futureDate) {
         currentDate.setDate(currentDate.getDate() + 7);
     }
 
-    resultElement.textContent = `Hay ${sundayCount} domingos entre hoy y la fecha seleccionada.`;
+    // Format the result message with the date in dd-mm-yyyy format
+    const formattedDate = formatDate(futureDate);
+    resultElement.textContent = `Hay ${sundayCount} domingos entre hoy y ${formattedDate}`;
     postitElement.style.display = 'block';
 
     // Update URL with the selected date
