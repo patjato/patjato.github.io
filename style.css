@@ -87,11 +87,18 @@ button:hover {
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 0;
+        align-items: flex-start;
+    }
+
     .container {
-        padding: 1.5rem;
+        padding: 1rem;
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
     }
 
     h1 {
@@ -100,14 +107,18 @@ button:hover {
 
     input[type="date"] {
         font-size: 16px;
-        padding: 12px;
+        padding: 15px;
         margin: 1rem 0;
-        width: calc(100% - 24px);
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
     }
 
     button {
         font-size: 16px;
-        padding: 12px 20px;
+        padding: 15px 20px;
+        border-radius: 0;
+        margin-top: 10px;
     }
 
     #result {
