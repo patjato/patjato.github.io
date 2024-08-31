@@ -55,7 +55,7 @@ function countSundays(futureDate) {
 
     // Format the result message with the date in dd-mm-yyyy format
     const formattedDate = formatDate(futureDate);
-    resultElement.textContent = `Hay ${sundayCount} domingos entre hoy y ${formattedDate}`;
+    resultElement.textContent = `Hay ${sundayCount} domingos hasta ${formattedDate}`;
     postitElement.style.display = 'block';
 
     // Update URL with the selected date
