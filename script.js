@@ -12,6 +12,11 @@ function formatDate(date) {
     return `${day}-${month}-${year}`;
 }
 
+// Function to format date for input[type="date"] (yyyy-mm-dd)
+function formatDateForInput(date) {
+    return date.toISOString().split('T')[0];
+}
+
 // Function to get date from URL hash
 function getDateFromHash() {
     const hash = window.location.hash.substring(1);
@@ -58,7 +63,7 @@ function countSundays(futureDate) {
 // Function to handle button click
 function handleCountClick() {
     const dateInput = document.getElementById('dateInput');
-    const futureDate = parseDate(dateInput.value);
+    const futureDate = new Date(dateInput.value);
     countSundays(futureDate);
 }
 
@@ -70,10 +75,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide the post-it note initially
     document.getElementById('postit').style.display = 'none';
 
+    // Set min attribute to today's date
+    const today = new Date();
+    dateInput.min = formatDateForInput(today);
+
     // Check for date in URL
     const hashDate = getDateFromHash();
-    if (hashDate && hashDate > new Date()) {
-        dateInput.value = formatDate(hashDate);
+    if (hashDate && hashDate > today) {
+        dateInput.value = formatDateForInput(hashDate);
         countSundays(hashDate);
     }
 
@@ -92,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('hashchange', function() {
     const hashDate = getDateFromHash();
     if (hashDate) {
-        document.getElementById('dateInput').value = formatDate(hashDate);
+        document.getElementById('dateInput').value = formatDateForInput(hashDate);
         countSundays(hashDate);
     }
 });
